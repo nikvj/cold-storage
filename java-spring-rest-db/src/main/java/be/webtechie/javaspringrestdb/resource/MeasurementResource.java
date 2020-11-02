@@ -36,17 +36,17 @@ public class MeasurementResource {
 	@Autowired
 	private MeasurementRepository measurementRepository;
 
-    @GetMapping("/measurements")
+	@GetMapping("/measurements")
 	public List<MeasurementEntity> retriveByTime() {
-    	
+
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm:ss");
 		LocalDateTime datetime = LocalDateTime.now();
 		datetime = datetime.minusMinutes(15);
 		String aftersubtraction = datetime.format(formatter);
 
 		return measurementRepository.findAllByTimeBetween(datetime);
-    	
-    }
+
+	}
 
 	@GetMapping("/measurement/{id}")
 	public List<MeasurementEntity> retrieveById(@PathVariable Long id) {
@@ -57,7 +57,7 @@ public class MeasurementResource {
 
 		LocalDateTime datetime = LocalDateTime.now();
 //		datetime = datetime.minusMinutes(15);
-		
+
 		return datetime;
 
 	}

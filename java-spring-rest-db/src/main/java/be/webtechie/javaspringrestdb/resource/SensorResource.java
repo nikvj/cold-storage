@@ -22,30 +22,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class SensorResource {
 
 	@Autowired
-    private SensorRepository sensorRepository;
+	private SensorRepository sensorRepository;
 
-    @GetMapping("/sensor")
-    public List<SensorEntity> retrieveAllSensors() {
-        return sensorRepository.findAll();
-    }
+	@GetMapping("/sensor")
+	public List<SensorEntity> retrieveAllSensors() {
+		return sensorRepository.findAll();
+	}
 
-    @GetMapping("/sensor/{id}")
-    public SensorEntity retrieveSensor(@PathVariable long id) {
-        return sensorRepository.findById(id);
-    }
+	@GetMapping("/sensor/{id}")
+	public SensorEntity retrieveSensor(@PathVariable long id) {
+		return sensorRepository.findById(id);
+	}
 
-    @PostMapping("/sensor")
+	@PostMapping("/sensor")
 
-    public ResponseEntity createSensor(@RequestBody String name) {
-        List<SensorEntity> sensorEntities = sensorRepository.findAllByName(name);
+	public ResponseEntity createSensor(@RequestBody String name) {
+		List<SensorEntity> sensorEntities = sensorRepository.findAllByName(name);
 
-        if (sensorEntities.size() > 0) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("There is already a sensor with the name: " + name);
-        }
+		if (sensorEntities.size() > 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("There is already a sensor with the name: " + name);
+		}
 
-        SensorEntity sensorEntity = new SensorEntity(name);
-        sensorRepository.save(sensorEntity);
-        return ResponseEntity.ok(sensorEntity);
-    }
+		SensorEntity sensorEntity = new SensorEntity(name);
+		sensorRepository.save(sensorEntity);
+		return ResponseEntity.ok(sensorEntity);
+	}
 }
