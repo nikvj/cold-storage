@@ -35,7 +35,14 @@ public class MeasurementResource {
 
 	@Autowired
 	private MeasurementRepository measurementRepository;
+	
 
+	public LocalDateTime getDateTime() {
+		LocalDateTime datetime = LocalDateTime.now();
+		return datetime;
+	}
+	
+	//Get data default by last 15 minutes
 	@GetMapping("/measurements")
 	public List<MeasurementEntity> retriveByTime() {
 
@@ -47,21 +54,14 @@ public class MeasurementResource {
 		return measurementRepository.findAllByTimeBetween(datetime);
 
 	}
-
+	
+	//Get data by Id
 	@GetMapping("/measurement/{id}")
 	public List<MeasurementEntity> retrieveById(@PathVariable Long id) {
 		return measurementRepository.findByIds(id);
 	}
-
-	public LocalDateTime getDateTime() {
-
-		LocalDateTime datetime = LocalDateTime.now();
-//		datetime = datetime.minusMinutes(15);
-
-		return datetime;
-
-	}
-
+	
+	//Get data by hours
 	@GetMapping("/measurement")
 	public List<MeasurementEntity> retriveByTimes(@RequestParam(value = "time") String time) {
 
